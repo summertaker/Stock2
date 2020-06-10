@@ -133,7 +133,7 @@ class ArticleActivity : AppCompatActivity() {
             LinearLayout.LayoutParams.WRAP_CONTENT,
             LinearLayout.LayoutParams.WRAP_CONTENT
         )
-        params.setMargins(0, 0, 35, 0);
+        params.setMargins(0, 0, 35, 0)
 
         var body = content
         for (stock in stocks) {
@@ -141,15 +141,15 @@ class ArticleActivity : AppCompatActivity() {
             val textView = TextView(this)
             textView.text = stock.name
             textView.textSize = 16F
-            textView.setTextColor(getColor(R.color.blue))
-            textView.layoutParams = params;
+            textView.setTextColor(getColor(R.color.indianRed))
+            textView.layoutParams = params
             textView.setOnClickListener { stockNameClick(stock) }
             loArticleHeader.addView(textView)
 
             body = body.replace(stock.name, "<span class=\"name\">" + stock.name + "</span>")
         }
 
-        val style = "<style>body{padding:5px;line-height:140%;font-size:1.1rem;}.name{color:indianred;}</style>"
+        val style = "<style>body{padding:5px;line-height:140%;font-size:1.1rem;}.name{color:steelblue;}</style>"
         wvArticleContent.loadData(style + body, "text/html", null)
 
         /*wvArticleContent.setOnTouchListener(object: OnSwipeTouchListener(applicationContext) {

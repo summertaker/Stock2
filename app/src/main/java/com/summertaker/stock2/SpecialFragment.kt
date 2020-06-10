@@ -1,5 +1,6 @@
 package com.summertaker.stock2
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -12,6 +13,11 @@ import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import kotlinx.android.synthetic.main.fragment_special.*
 import org.jsoup.Jsoup
+import org.ocpsoft.prettytime.PrettyTime
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 class SpecialFragment : Fragment(), SpecialInterface {
     private var counter: Int? = null
@@ -92,6 +98,7 @@ class SpecialFragment : Fragment(), SpecialInterface {
         context?.let { VolleySingleton.getInstance(it).addToRequestQueue(stringRequest) }
     }
 
+    @SuppressLint("SimpleDateFormat")
     private fun parseData(html: String) {
         val doc = Jsoup.parse(html)
         val div = doc.select("div[class=boardList2]")
@@ -99,7 +106,9 @@ class SpecialFragment : Fragment(), SpecialInterface {
 
         val table = div.select("table")
         val trs = table.select("tr")
-        var counter = 0
+
+        val simpleDateFormat = SimpleDateFormat("yyyy.MM.dd HH:mm:ss")
+        val prettyTime = PrettyTime()
         for (tr in trs) {
             val tds = tr.select("td")
             if (tds.size != 3) continue
@@ -109,17 +118,18 @@ class SpecialFragment : Fragment(), SpecialInterface {
 
             val title = a.text()
 
-            val published = tds[1].text()
+            var published = tds[1].text() // 20.06.09 09:28
+            //Log.e(">>", "published: $published")
+            published = "20$published:00"
+            val date: Date? = simpleDateFormat.parse(published)
+            published = prettyTime.format(date)
 
-            //Log.e(">>", "$mArticleNumber $title $url")
+            //Log.e(">>", "$mArticleNumber $published $title")
 
             mArticleNumber++
             val article = Article(mArticleNumber, title, url, published)
 
             mArticles.add(article)
-
-            counter++
-            if (counter > 20) break
         }
 
         mRequestCounter++
