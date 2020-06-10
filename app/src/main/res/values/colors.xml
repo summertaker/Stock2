@@ -4,7 +4,9 @@
     <color name="colorPrimaryDark">#004D40</color>
     <color name="colorAccent">#00796B</color>
 
-    <color name="red">#D32F2F</color>
-    <color name="indianRed">#CD5C5C</color>
     <color name="blue">#1976D2</color>
+    <color name="dimGray">#696969</color>
+    <color name="indianRed">#CD5C5C</color>
+    <color name="red">#D32F2F</color>
+    <color name="seaGreen">#2E8B57</color>
 </resources>

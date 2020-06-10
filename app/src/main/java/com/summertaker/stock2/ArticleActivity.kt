@@ -7,13 +7,12 @@ import android.util.Log
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import kotlinx.android.synthetic.main.content_article.*
 import org.jsoup.Jsoup
 
-class ArticleActivity : AppCompatActivity() {
+class ArticleActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,6 +21,8 @@ class ArticleActivity : AppCompatActivity() {
 
         val articleTitle = intent.getStringExtra("title")
         val articleUrl = intent.getStringExtra("url")
+
+        initGesture()
 
         val actionBar = supportActionBar
         if (actionBar != null) {
@@ -149,17 +150,9 @@ class ArticleActivity : AppCompatActivity() {
             body = body.replace(stock.name, "<span class=\"name\">" + stock.name + "</span>")
         }
 
-        val style = "<style>body{padding:5px;line-height:140%;font-size:1.1rem;}.name{color:steelblue;}</style>"
+        val style =
+            "<style>body{padding:5px;line-height:140%;font-size:1.1rem;}.name{color:steelblue;}</style>"
         wvArticleContent.loadData(style + body, "text/html", null)
-
-        /*wvArticleContent.setOnTouchListener(object: OnSwipeTouchListener(applicationContext) {
-            override fun onSwipeLeft() {
-                onBackPressed()
-            }
-            override fun onSwipeRight() {
-                onBackPressed()
-            }
-        })*/
     }
 
     private fun stockNameClick(stock: Stock) {
@@ -172,5 +165,13 @@ class ArticleActivity : AppCompatActivity() {
         val url = "stockplus://viewStock?code=A$code&tabIndex=0&marketIndex=1"
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
         startActivity(intent)
+    }
+
+    override fun onSwipeRight() {
+        finish()
+    }
+
+    override fun onSwipeLeft() {
+        finish()
     }
 }

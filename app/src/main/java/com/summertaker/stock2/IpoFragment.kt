@@ -1,5 +1,6 @@
 package com.summertaker.stock2
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -13,6 +14,11 @@ import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import kotlinx.android.synthetic.main.fragment_ipo.*
 import org.jsoup.Jsoup
+import org.ocpsoft.prettytime.PrettyTime
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 class IpoFragment : Fragment(), IpoInterface {
     private var counter: Int? = null
@@ -90,14 +96,22 @@ class IpoFragment : Fragment(), IpoInterface {
         context?.let { VolleySingleton.getInstance(it).addToRequestQueue(stringRequest) }
     }
 
+    @SuppressLint("SimpleDateFormat")
     private fun parseData(html: String) {
         val doc = Jsoup.parse(html)
         val table = doc.select("div[class=box_type_l]")
         val trs = table.select("tr")
         var counter = 0
+        val simpleDateFormat = SimpleDateFormat("yyyy.MM.dd")
+        val prettyTime = PrettyTime()
         for (tr in trs) {
             val tds = tr.select("td")
             if (tds.size != 12) continue
+
+            var listed = tds[1].text() // "2020.06.05"
+            //Log.e(">>", "published: $published")
+            val date: Date? = simpleDateFormat.parse(listed)
+            val prettyListed = prettyTime.format(date)
 
             val a = tds[2].selectFirst("a")
             val href = a.attr("href")
@@ -128,18 +142,23 @@ class IpoFragment : Fragment(), IpoInterface {
             //Log.e(">>", "$code / $name / $price / $fluctuation")
 
             mStockNumber++
-            val stock = Ipo(mStockNumber, code, name, price, fluctuation)
-
+            val stock = Ipo(mStockNumber, code, name, price, fluctuation, listed, prettyListed)
             mIpos.add(stock)
 
             counter++
-            if (counter > 20) break
+            if (counter >= 10) break
         }
 
         mRequestCounter++
         if (mRequestCounter < mRequestUrls.size) {
             requestData()
         } else {
+            mIpos.sortWith(compareByDescending { it.listed })
+            var number = 1;
+            for (ipo in mIpos) {
+                ipo.number = number
+                number++
+            }
             renderData()
         }
     }

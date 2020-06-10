@@ -7,7 +7,7 @@
     android:padding="15dp">
 
     <ImageView
-        android:id="@+id/ivStockChart"
+        android:id="@+id/ivIpoChart"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:adjustViewBounds="true"
@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvStockName"
+        android:id="@+id/tvIpoName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
@@ -24,28 +24,38 @@
         android:textColor="@android:color/black"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ivStockChart" />
+        app:layout_constraintTop_toBottomOf="@id/ivIpoChart" />
 
     <TextView
-        android:id="@+id/tvStockPrice"
+        android:id="@+id/tvIpoFluctuation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="10dp"
         android:text="@string/price"
         android:textColor="@android:color/black"
         android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@+id/tvStockName"
-        app:layout_constraintTop_toTopOf="@id/tvStockName" />
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/tvIpoName"
+        app:layout_constraintStart_toEndOf="@+id/tvIpoName" />
 
     <TextView
-        android:id="@+id/tvStockFluctuation"
+        android:id="@+id/tvIpoPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="10dp"
         android:text="@string/fluctuation"
-        android:textColor="@android:color/black"
-        android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@+id/tvStockPrice"
-        app:layout_constraintTop_toTopOf="@id/tvStockName" />
+        android:textColor="@color/dimGray"
+        app:layout_constraintBottom_toBottomOf="@id/tvIpoName"
+        app:layout_constraintStart_toEndOf="@+id/tvIpoFluctuation" />
+
+    <TextView
+        android:id="@+id/tvIpoListed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/listed"
+        android:textColor="@color/seaGreen"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvIpoName" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -44,30 +44,35 @@ class IpoAdapter(
             val timeMillis = System.currentTimeMillis() // 1591610815764
             val url =
                 "https://ssl.pstatic.net/imgfinance/chart/item/candle/day/" + ipo.code + ".png?sidcode=" + timeMillis
-            Glide.with(view.context).load(url).into(view.ivStockChart)
+            //val url =
+            //    "https://ssl.pstatic.net/imgfinance/chart/mobile/candle/week/" + ipo.code + "_end.png?sidcode=" + timeMillis
+            //val url = "https://t1.daumcdn.net/finance/chart/kr/candle/w/A" + ipo.code + ".png?sidcode=" + timeMillis
+            Glide.with(view.context).load(url).into(view.ivIpoChart)
             //view.chart.setOnClickListener {
             //    listener.onStockSelected(stock)
             //}
 
             val name = ipo.number.toString() + ". " + ipo.name
-            view.tvStockName.text = name
+            view.tvIpoName.text = name
 
-            view.tvStockPrice.text = ipo.price
+            val price = "(" + ipo.price + "원)"
+            view.tvIpoPrice.text = price
 
-            val fluctuation = "(" + ipo.fluctuation + ")"
-            view.tvStockFluctuation.text = fluctuation
+            view.tvIpoFluctuation.text = ipo.fluctuation
 
             if (ipo.fluctuation.substring(0, 1) == "+") {
                 if (context != null) {
-                    view.tvStockPrice.setTextColor(context.getColor(R.color.red))
-                    view.tvStockFluctuation.setTextColor(context.getColor(R.color.red))
+                    view.tvIpoFluctuation.setTextColor(context.getColor(R.color.red))
+                    //view.tvIpoPrice.setTextColor(context.getColor(R.color.red))
                 }
             } else {
                 if (context != null) {
-                    view.tvStockPrice.setTextColor(context.getColor(R.color.blue))
-                    view.tvStockFluctuation.setTextColor(context.getColor(R.color.blue))
+                    view.tvIpoFluctuation.setTextColor(context.getColor(R.color.blue))
+                    //view.tvIpoPrice.setTextColor(context.getColor(R.color.blue))
                 }
             }
+
+            view.tvIpoListed.text = ipo.prettyListed
 
             view.setOnClickListener { listener.onClick(ipo) }
         }
