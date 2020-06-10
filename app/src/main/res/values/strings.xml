@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">STOCK2</string>
+    <string name="title_activity_article">장중 특징주</string>
+    <string name="action_settings">설정</string>
+
+    <string-array name="tabs">
+        <item>장중 특징주</item>
+        <item>신규 상장</item>
+    </string-array>
+
+    <string name="name">Name</string>
+    <string name="price">Price</string>
+    <string name="fluctuation">Fluctuation</string>
+    <string name="title">Title</string>
+    <string name="published">Published</string>
+
+</resources>
