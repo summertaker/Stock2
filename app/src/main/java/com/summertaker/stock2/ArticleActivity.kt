@@ -151,7 +151,7 @@ class ArticleActivity : BaseActivity() {
         }
 
         val style =
-            "<style>body{padding:5px;line-height:140%;font-size:1.1rem;}.name{color:steelblue;}</style>"
+            "<style>body{padding:5px;line-height:140%;font-size:1.05rem;}.name{color:steelblue;}</style>"
         wvArticleContent.loadData(style + body, "text/html", null)
     }
 

@@ -38,6 +38,7 @@ class SpecialAdapter(
         ) {
             val title = article.number.toString() + ". " + article.title
             view.title.text = title
+
             view.published.text = article.published
 
             view.setOnClickListener { listener.onClick(article) }

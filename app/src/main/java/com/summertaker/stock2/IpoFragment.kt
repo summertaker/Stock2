@@ -108,7 +108,7 @@ class IpoFragment : Fragment(), IpoInterface {
             val tds = tr.select("td")
             if (tds.size != 12) continue
 
-            var listed = tds[1].text() // "2020.06.05"
+            val listed = tds[1].text() // "2020.06.05"
             //Log.e(">>", "published: $published")
             val date: Date? = simpleDateFormat.parse(listed)
             val prettyListed = prettyTime.format(date)
@@ -154,7 +154,7 @@ class IpoFragment : Fragment(), IpoInterface {
             requestData()
         } else {
             mIpos.sortWith(compareByDescending { it.listed })
-            var number = 1;
+            var number = 1
             for (ipo in mIpos) {
                 ipo.number = number
                 number++
